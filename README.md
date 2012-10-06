@@ -1,7 +1,7 @@
 SignalR to AS3 Bridge
 =====================
 
-This project demonstrates how to use signalR as a long poll mechanism with AS3/flex.  While Flex supports sockets and FluorineFX has a Flex sockets push solution, using signalR means you can share your broadcast architecture regardless of your frontend.
+This project demonstrates how to use signalR as a long poll mechanism with AS3/flex.  While Flex supports sockets and FluorineFX has a Flex sockets push solution, using signalR means you can share your broadcast architecture regardless of your frontend.  We still use fluorine but only as an AMF serializer.
 
 Also since signalR takes care of the transport and reconnection layer you don't need to worry about cross domain files, socket coding, or any other complexities dealing with push semantics for actionscript.
 
@@ -58,3 +58,9 @@ The ui should be compiled against Flex 3.5 and compiled as `TestApplication.swf`
 ### As3Bridge 
 
 - Subclass of `JSRemoteServiceBase` which updates the main app with the text of the test object that was sent from the server
+                        
+
+Notes
+-----
+
+Notice that we've added some extra configuration to our `Web.config` file to indicate to fluorine to serialize using as3 formatting standards (i.e. first letter lowercase).
