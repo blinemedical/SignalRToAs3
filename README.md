@@ -39,11 +39,12 @@ The project contains a `Server` folder and a `UI` folder. The `Server` folder ha
 
 ### Server Root
 - This contains the basic shell of the web root. 
-- Note Scripts/app.js which contains the only javascript entry point required for the as3 bridge and handles proxying of server side requests. If we wanted to send data back from the client to server we'd still need to create a proxy point manually. The demonstration is only for server to client invocation (push)
+- Note Scripts/app.js which contains the only javascript entry point required for the as3 bridge and handles proxying of server side requests. If we wanted to send data back from the client to server we'd still need to create a proxy point manually. The demonstration is only for server to client invocation (push)  
+- Default.aspx has the signalR hubs definitions and functions to find the swf on the page
 
 #UI
                                            
-The ui should be compiled against Flex 3.5
+The ui should be compiled against Flex 3.5 and compiled as `TestApplication.swf` and put in the server root.  Server root's default.aspx looks for this swf to load.
 
 ### SignalR 
 
