@@ -17,3 +17,24 @@ Instead what we've done is wrapped the signalR clients dynamic object in a `Clie
 The `ClientProxy` object repackages the function invocation  into a new type called `ActionScriptRemoteObject`. This has a field called `String Name` and a field called `object[] Arguments`.  This is a wrapper object on top of any serializiable objects you send from signalR.   The `Name` is the target method to invoke in actionscript and the `arguments` are base64 AMF serialized objects you want to pass to your as3 function.
 
 Since signalR sends JSON we chose to serialize the AMF objects and then convert them to base64 and send the base64 encoding in the json.  `JSRemoteServiceBase` will take the base64 encoding of `ActionScriptRemoteObject`, convert it back to a byte array, and then deserialize the amf and properly invoke the requested function on the subclass of `JSRemoteServiceBase`.  
+
+
+Package Structure
+-----------------
+
+The project contains a `Server` folder and a `UI` folder. The `Server` folder has a self contained solution that has 
+                                                      
+## AmfInvoker
+- Contains the `ClientProxy` which wraps the signalR dynamic object and re-packages requests to be through the single known javascript bridge
+- Contains the Amf Serialiation and base64 encoding
+- Contains the base `ActionScriptRemoteObject` class that is the payload through javascript to actionscript
+
+## Data
+- Basic data namespace containing a test object we serialize
+
+## Hubs
+- Contains the signalR hub declaration as well as a hub processor that is responsible for doing all the work. The hub is just there to hand signalR requests to the processor
+
+## Server Root
+- This contains the basic shell of the web root. 
+- Note Scripts/app.js which contains the only javascript entry point required for the as3 bridge and handles proxying of server side requests. If we wanted to send data back from the client to server we'd still need to create a proxy point manually. The demonstration is only for server to client invocation (push)
