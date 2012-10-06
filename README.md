@@ -3,7 +3,7 @@ SignalR to AS3 Bridge
 
 This project demonstrates how to use signalR as a long poll mechanism with AS3/flex.  While Flex supports sockets and FluorineFX has a Flex sockets push solution, using signalR means you can share your broadcast architecture regardless of your frontend.  We still use fluorine but only as an AMF serializer.
 
-Also since signalR takes care of the transport and reconnection layer you don't need to worry about cross domain files, socket coding, or any other complexities dealing with push semantics for actionscript.
+Also since signalR takes care of the transport and reconnection layer you don't need to worry about reconnection handling, cross domain files, socket coding, or any other complexities dealing with push semantics for actionscript.
 
 General Overview
 ----------------
