@@ -15,6 +15,9 @@ namespace AmfInvoker
         {
             get
             {
+                // when we want to act on a single client by connectionID we
+                // return a signalAgentProxy
+
                 return new SignalAgentProxy(_clientAgent[key]);
             }
         }
@@ -36,6 +39,15 @@ namespace AmfInvoker
             return true;
         }
 
+        /// <summary>
+        /// When a method is attempted to call on a dynamic object we'll transform
+        /// the request to invoke our KNOWN javascript bridge function and re-package the arguments
+        /// as a base64 AMF serialized wrapper object
+        /// </summary>
+        /// <param name="binder"></param>
+        /// <param name="args"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
         public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
         {
             result = _clientAgent.Invoke(DynamicInvokeHelper.JavascriptFunctionName, DynamicInvokeHelper.Message(binder.Name,args));

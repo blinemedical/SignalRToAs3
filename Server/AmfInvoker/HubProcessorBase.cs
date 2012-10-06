@@ -9,17 +9,10 @@ namespace AmfInvoker
         {
             get
             {
+                // wrap the hub context in a hub context proxy so we can catch invocation requests
+
                 return new HubContextProxy(GlobalHost.ConnectionManager.GetHubContext<T>());
             }
         }
-
-        protected IHubContext ContextDotNet
-        {
-            get
-            {
-                return GlobalHost.ConnectionManager.GetHubContext<T>();
-            }
-        }
-
     }
 }

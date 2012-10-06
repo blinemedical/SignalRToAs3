@@ -17,6 +17,8 @@ namespace AmfInvoker
 
         public dynamic Clients
         {
+            // return our own client proxy which implements DynamicObject
+
             get { return _clients ?? (_clients = new ClientsProxy(_hubContext.Clients)); }
         }
 
