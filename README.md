@@ -42,10 +42,13 @@ The project contains a `Server` folder and a `UI` folder. The `Server` folder ha
 - Note Scripts/app.js which contains the only javascript entry point required for the as3 bridge and handles proxying of server side requests. If we wanted to send data back from the client to server we'd still need to create a proxy point manually. The demonstration is only for server to client invocation (push)
 
 #UI
+                                           
+The ui should be compiled against Flex 3.5
 
 ### SignalR 
 
 - This has the actionscript base class `JSRemoteServiceBase` which handles incoming requests from the server.  We subclass this base class and any function we want to invoke in actionscript should go in the subclass
+- Has the base64 to byte array helper class
 
 ### Data
 
