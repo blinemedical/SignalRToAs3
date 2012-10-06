@@ -1,0 +1,19 @@
+SignalR to AS3 Bridge
+=====================
+
+This project demonstrates how to use signalR as a long poll mechanism with AS3/flex.  While Flex supports sockets and FluorineFX has a Flex sockets push solution, using signalR means you can share your broadcast architecture regardless of your frontend.
+
+Also since signalR takes care of the transport and reconnection layer you don't need to worry about cross domain files, socket coding, or any other complexities dealing with push semantics for actionscript.
+
+General Overview
+----------------
+
+The general idea is to have a javascript bridge that signalR talks to from the server (using normal signalR mechanisms) and proxy the request from javascript to the swf on the page and vice versa.  
+
+However, the nuisance here is that for every function you want to add for server to client invocation you needed to write double the boilerplate (actionscript AND javascript).
+
+Instead what we've done is wrapped the signalR clients dynamic object in a `ClientProxy` object so that we can funnel arbritrary client side requests through a single javascript function. This way we don't need to create any more boilerplate.  The javascript function will always invoke the same function in actionscript in the `JSRemoteServiceBase` that always sends a single known type through a single javascript function. 
+
+The `ClientProxy` object repackages the function invocation  into a new type called `ActionScriptRemoteObject`. This has a field called `String Name` and a field called `object[] Arguments`.  This is a wrapper object on top of any serializiable objects you send from signalR.   The `Name` is the target method to invoke in actionscript and the `arguments` are base64 AMF serialized objects you want to pass to your as3 function.
+
+Since signalR sends JSON we chose to serialize the AMF objects and then convert them to base64 and send the base64 encoding in the json.  `JSRemoteServiceBase` will take the base64 encoding of `ActionScriptRemoteObject`, convert it back to a byte array, and then deserialize the amf and properly invoke the requested function on the subclass of `JSRemoteServiceBase`.  
