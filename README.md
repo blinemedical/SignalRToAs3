@@ -23,18 +23,34 @@ Package Structure
 -----------------
 
 The project contains a `Server` folder and a `UI` folder. The `Server` folder has a self contained solution that has 
-                                                      
-## AmfInvoker
+   
+#Server
+                                                   
+### AmfInvoker
 - Contains the `ClientProxy` which wraps the signalR dynamic object and re-packages requests to be through the single known javascript bridge
 - Contains the Amf Serialiation and base64 encoding
 - Contains the base `ActionScriptRemoteObject` class that is the payload through javascript to actionscript
 
-## Data
+### Data
 - Basic data namespace containing a test object we serialize
 
-## Hubs
+### Hubs
 - Contains the signalR hub declaration as well as a hub processor that is responsible for doing all the work. The hub is just there to hand signalR requests to the processor
 
-## Server Root
+### Server Root
 - This contains the basic shell of the web root. 
 - Note Scripts/app.js which contains the only javascript entry point required for the as3 bridge and handles proxying of server side requests. If we wanted to send data back from the client to server we'd still need to create a proxy point manually. The demonstration is only for server to client invocation (push)
+
+#UI
+
+### SignalR 
+
+- This has the actionscript base class `JSRemoteServiceBase` which handles incoming requests from the server.  We subclass this base class and any function we want to invoke in actionscript should go in the subclass
+
+### Data
+
+- Data namespace containing the test object
+
+### As3Bridge 
+
+- Subclass of `JSRemoteServiceBase` which updates the main app with the text of the test object that was sent from the server
