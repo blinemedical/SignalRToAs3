@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<mx:Application
+        xmlns:mx="http://www.adobe.com/2006/mxml"
+        creationComplete="creationCompleteHandler(event)">
+    <mx:Script><![CDATA[
+        import as3Bridge.as3Bridge;
+
+        import data.TestObject;
+
+
+        import mx.events.FlexEvent;
+
+        import signalR.ActionScriptRemoteObject;
+
+        private var testObject:TestObject = new TestObject();
+        private var remoteObject:ActionScriptRemoteObject = new ActionScriptRemoteObject();
+        private var _textValue:String;
+
+        private var as3Invoker:as3Bridge = new as3Bridge();
+
+        public function updateText(s:String):void {
+            textValue += s + "\r\n";
+        }
+
+        [Bindable(event="textValueChanged")]
+        public function get textValue():String {
+            return _textValue;
+        }
+
+        public function set textValue(value:String):void {
+            if (_textValue == value) return;
+            _textValue = value;
+            dispatchEvent(new Event("textValueChanged"));
+        }
+
+        private function creationCompleteHandler(event:FlexEvent):void {
+            as3Invoker.initializeService();
+        }
+        ]]></mx:Script>
+        <mx:TextArea width="100%" height="100%" id="textArea" text="{textValue}"/>
+</mx:Application>

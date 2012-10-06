@@ -11,3 +11,5 @@ Release/
 obj/
 *.suo
 *.ReSharper.user
+.swf
+*.idea*
